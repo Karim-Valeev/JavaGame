@@ -8,6 +8,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -15,11 +16,13 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -213,7 +216,7 @@ public class Game extends Application {
 //        Размер поля 500х500 px
 //        Размер квадрата 50x50 , по сути 40 на 40 из-за отступов
 //        Здесь идет чистая геометрия и матеша, на бумажке чекайте координаты
-        
+
         Rectangle[][] squares = new Rectangle[10][10];
         for(int x = 0; x<10; x++){
             for(int y = 0; y<10;y++){
@@ -236,6 +239,19 @@ public class Game extends Application {
                 nodes.getChildren().add(rec);
             }
         }
+
+//        ИГРОК
+        Image boy = new Image("/new_images/BOY.png");
+        ImageView iv2 = new ImageView();
+        iv2.setImage(boy);
+        iv2.setFitWidth(40);
+        iv2.setFitHeight(40);
+        iv2.setPreserveRatio(true);
+        iv2.setSmooth(true);
+        iv2.setCache(true);
+
+        nodes.getChildren().add(iv2);
+
         window.setScene( fieldScene );
     }
 
