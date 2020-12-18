@@ -16,6 +16,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -44,17 +45,9 @@ public class Game extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         window = stage;
-//<<<<<<< HEAD
-        window.setMinWidth(700);
-        window.setMinHeight(700);
-//        FXMLLoader loader = new FXMLLoader();
-//        URL xmlUrl = getClass().getResource("/fxml/mainPage.fxml");
-//        loader.setLocation(xmlUrl);
-//        HBox root = loader.load();
-//////
-//        scene = new Scene(root);
-//        window.setScene(scene);
-//=======
+        window.setMinWidth(500);
+        window.setMinHeight(535);
+
         NewScreen main = new NewScreen("/fxml/mainPage.fxml", window);
         main.newScene();
         window.setTitle("A simple FXML Example");
@@ -117,7 +110,9 @@ public class Game extends Application {
                     }
                 });
 
+
         GraphicsContext gc = canvas.getGraphicsContext2D();
+
 
         Font theFont = Font.font( "Helvetica", FontWeight.BOLD, 24 );
         gc.setFont( theFont );
@@ -204,6 +199,44 @@ public class Game extends Application {
         window.setScene(theScene);
 //        window.show();
 
+    }
+
+    @FXML
+    private void field(ActionEvent event){
+        event.consume();
+
+        Group nodes = new Group();
+
+        Scene fieldScene = new Scene( nodes );
+        window.setTitle("Field");
+//        ПАЧАНЫ
+//        Размер поля 500х500 px
+//        Размер квадрата 50x50 , по сути 40 на 40 из-за отступов
+//        Здесь идет чистая геометрия и матеша, на бумажке чекайте координаты
+        
+        Rectangle[][] squares = new Rectangle[10][10];
+        for(int x = 0; x<10; x++){
+            for(int y = 0; y<10;y++){
+                Rectangle rec = new Rectangle(5 + 50*x, 5+50*y, 40,40);
+                rec.setFill(Color.RED);
+//                Можно и нужно скорее всего только на клик сделать
+//                rec.setOnMouseClicked();
+                rec.setOnMouseEntered(new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent mouseEvent) {
+                        if(rec.getFill().equals(Color.RED)){
+                            rec.setFill(Color.GREEN);
+                        } else {
+                            rec.setFill(Color.RED);
+                        }
+
+                    }
+                });
+                squares[x][y] = rec;
+                nodes.getChildren().add(rec);
+            }
+        }
+        window.setScene( fieldScene );
     }
 
     @FXML

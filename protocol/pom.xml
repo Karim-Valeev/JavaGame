@@ -9,7 +9,7 @@
         <groupId>ru.kpfu.itis</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
-    <artifactId>client</artifactId>
+    <artifactId>protocol</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
