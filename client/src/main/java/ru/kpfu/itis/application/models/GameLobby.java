@@ -16,21 +16,10 @@ public class GameLobby {
     }
 
     public void init(){
-        clientPlayer = new Player();
-        enemyPlayer = new Player();
-        gameField.getCell(clientPlayer.getX(), clientPlayer.getY()).setPlayer(clientPlayer);
-        gameField.getCell(enemyPlayer.getX(), enemyPlayer.getY()).setPlayer(enemyPlayer);
-        gameField.getCell(enemyPlayer.getX(), enemyPlayer.getY()).setEnemy(true);
+
     }
 
     public void movePlayer(int x, int y, Player player){
-
-        player.setX(x);
-        player.setY(y);
-
-    }
-
-    public void repaint(){
 
     }
 }

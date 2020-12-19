@@ -2,12 +2,13 @@ package ru.kpfu.itis.application.models;
 
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Region;
 import javafx.scene.shape.Rectangle;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Cell extends Rectangle {
+public class Cell extends Region {
 
     private int x;
     private int y;
@@ -15,7 +16,7 @@ public class Cell extends Rectangle {
     private boolean isEnemy;
 
     public Cell(int x, int y) {
-        super(Integer.MAX_VALUE, Integer.MAX_VALUE);
+        super();
         this.x = x;
         this.y = y;
         player = null;
@@ -43,6 +44,13 @@ public class Cell extends Rectangle {
 
     public void setPlayer(Player player) {
         this.player = player;
+        if (player == null){
+            isEnemy = false;
+            return;
+        }
+        if (player.isEnemy){
+            isEnemy = true;
+        }
     }
 
     public boolean isEnemy() {

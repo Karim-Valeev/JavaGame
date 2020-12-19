@@ -3,6 +3,8 @@ package ru.kpfu.itis.screens;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -20,7 +22,7 @@ public class NewScreen implements SceneMaker {
     private String fxmlDocPath;
     private Scene scene;
     private Stage stage;
-    private Pane pane;
+    private Parent pane;
     public NewScreen(String path, Stage stage) throws FileNotFoundException {
         this.stage = stage;
         this.fxmlDocPath = path;

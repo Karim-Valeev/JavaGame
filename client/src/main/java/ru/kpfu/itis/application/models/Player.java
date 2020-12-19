@@ -2,10 +2,13 @@ package ru.kpfu.itis.application.models;
 
 public class Player {
 
-    int x;
-    int y;
-    byte type;
+    Hero hero;
     boolean isEnemy;
+
+    public Player(Hero hero, boolean isEnemy) {
+        this.hero = hero;
+        this.isEnemy = isEnemy;
+    }
 
     public boolean isEnemy() {
         return isEnemy;
@@ -15,27 +18,11 @@ public class Player {
         isEnemy = enemy;
     }
 
-    public byte getType() {
-        return type;
+    public Hero getHero() {
+        return hero;
     }
 
-    public void setType(byte type) {
-        this.type = type;
-    }
-
-    public int getX() {
-        return x;
-    }
-
-    public int getY() {
-        return y;
-    }
-
-    public void setX(int x) {
-        this.x = x;
-    }
-
-    public void setY(int y) {
-        this.y = y;
+    public void setHero(Hero hero) {
+        this.hero = hero;
     }
 }
