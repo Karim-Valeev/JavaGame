@@ -224,16 +224,13 @@ public class Game extends Application {
                 rec.setFill(Color.RED);
 //                Можно и нужно скорее всего только на клик сделать
 //                rec.setOnMouseClicked();
-                rec.setOnMouseEntered(new EventHandler<MouseEvent>() {
-                    @Override
-                    public void handle(MouseEvent mouseEvent) {
-                        if(rec.getFill().equals(Color.RED)){
-                            rec.setFill(Color.GREEN);
-                        } else {
-                            rec.setFill(Color.RED);
-                        }
-
+                rec.setOnMouseEntered(mouseEvent -> {
+                    if(rec.getFill().equals(Color.RED)){
+                        rec.setFill(Color.GREEN);
+                    } else {
+                        rec.setFill(Color.RED);
                     }
+
                 });
                 squares[x][y] = rec;
                 nodes.getChildren().add(rec);
