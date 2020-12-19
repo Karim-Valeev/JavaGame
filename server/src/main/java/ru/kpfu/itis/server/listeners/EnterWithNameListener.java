@@ -2,6 +2,7 @@ package ru.kpfu.itis.server.listeners;
 
 import ru.kpfu.itis.protocol.Message;
 import ru.kpfu.itis.server.Connection;
+import ru.kpfu.itis.server.GameServer;
 import ru.kpfu.itis.server.abstracts.AbstractServerEventListener;
 import ru.kpfu.itis.server.abstracts.Server;
 import ru.kpfu.itis.server.exceptions.GameServerException;
@@ -12,7 +13,7 @@ import java.nio.ByteBuffer;
 public class EnterWithNameListener extends AbstractServerEventListener {
 
     @Override
-    public void init(Server server) {
+    public void init(GameServer server) {
         super.init(server);
         types.add(Message.TYPE_SUBMIT_NAME);
     }

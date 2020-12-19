@@ -154,4 +154,12 @@ public class GameServer implements Server {
             throw new GameServerException("Connection initialization problem...", e);
         }
     }
+
+    public List<Connection> getConnections() {
+        return connections;
+    }
+
+    public List<Game> getGames() {
+        return games;
+    }
 }

@@ -1,12 +1,8 @@
 package ru.kpfu.itis.application.models;
 
-import javafx.event.EventHandler;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Region;
-import javafx.scene.shape.Rectangle;
 
-import java.util.ArrayList;
-import java.util.List;
+import javafx.scene.layout.Region;
+import java.util.Objects;
 
 public class Cell extends Region {
 
@@ -59,5 +55,18 @@ public class Cell extends Region {
 
     public void setEnemy(boolean enemy) {
         isEnemy = enemy;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Cell cell = (Cell) o;
+        return x == cell.x && y == cell.y && isEnemy == cell.isEnemy && Objects.equals(player, cell.player);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(x, y, player, isEnemy);
     }
 }

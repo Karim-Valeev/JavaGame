@@ -2,6 +2,7 @@ package ru.kpfu.itis.server.abstracts;
 
 import ru.kpfu.itis.protocol.Message;
 import ru.kpfu.itis.server.Connection;
+import ru.kpfu.itis.server.GameServer;
 import ru.kpfu.itis.server.exceptions.ServerEventListenerException;
 
 
@@ -11,12 +12,12 @@ import java.util.stream.Collectors;
 public abstract class AbstractServerEventListener implements ServerEventListener{
 
     protected boolean init;
-    protected Server server;
+    protected GameServer server;
     protected Queue<Pair<Connection, Message>> queue;
     protected List<Integer> types = new ArrayList<>();
 
     @Override
-    public void init(Server server) {
+    public void init(GameServer server) {
         this.init = true;
         this.server = server;
         this.queue = new LinkedList<>();

@@ -2,50 +2,48 @@ package ru.kpfu.itis.application.controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import ru.kpfu.itis.application.App;
+import ru.kpfu.itis.application.client.GameClient;
+import ru.kpfu.itis.application.client.exceptions.GameClientException;
+import ru.kpfu.itis.protocol.Message;
 import ru.kpfu.itis.screens.NewScreen;
 
 import java.io.IOException;
+import java.net.InetAddress;
+import java.net.URL;
+import java.net.UnknownHostException;
+import java.util.ResourceBundle;
 
-public class MainController {
-    @FXML
-    private Button quitButton;
-    @FXML
-    private Button regButton;
-    @FXML
-    private Button infoButton;
+public class MainController implements Initializable {
+    private GameClient gameClient;
+
     @FXML
     private Button field;
 
     @FXML
     private void clickField(ActionEvent event) throws IOException {
-//        field.setText("You've clicked!");
-//        App.getWindow().setTitle("Field");
-//        GridPane root = new GridPane();
-//        root.setMinSize(200,200);
-//        root.setGridLinesVisible(true);
-//        Scene fieldScene = new Scene(root);
-//        for (int x = 0; x < 10; x++) {
-//            for (int y = 0; y < 10; y++) {
-//                Button button = new Button();
-//                root.add(button, x, y);
-//                button.setMaxWidth(Double.MAX_VALUE);
-//                button.setMaxHeight(Double.MAX_VALUE);
-//                GridPane.setHgrow(button, Priority.ALWAYS);
-//                GridPane.setVgrow(button, Priority.ALWAYS);
-//            }
-//        }
-//        Image boy = new Image("/new_images/BOY.png");
-//        ImageView iv2 = new ImageView();
-//        iv2.setImage(boy);
-//        iv2.setFitWidth(40);
-//        iv2.setFitHeight(40);
-//        iv2.setPreserveRatio(true);
-//        iv2.setSmooth(true);
-//        iv2.setCache(true);
-//        App.getWindow().setScene(fieldScene);
         NewScreen newScreen = new NewScreen("/fxml/gameField.fxml", App.getWindow());
         newScreen.newScene();
+    }
+
+    public void requestGame(ActionEvent actionEvent){
+        try {
+            gameClient.connect();
+            gameClient.sendMessage(Message.createMessage(Message.TYPE_INIT_CONNECTION, new byte[]{0}));
+            gameClient.sendMessage(Message.createMessage(Message.TYPE_REQ_GAME, new byte[]{0}));
+        } catch (GameClientException e) {
+            throw new IllegalStateException(e);
+        }
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        try {
+            gameClient = new GameClient(InetAddress.getLocalHost(), 11903);
+        } catch (UnknownHostException e) {
+            throw new IllegalStateException(e);
+        }
     }
 }

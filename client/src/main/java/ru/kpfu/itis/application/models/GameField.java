@@ -62,7 +62,7 @@ public class GameField extends Parent {
         Cell cell5 = getCell(x + 1, y + 1);
         Cell cell6 = getCell(x + 1, y - 1);
         Cell cell7 = getCell(x - 1, y + 1);
-        Cell cell8 = getCell(x - 1, y + 1);
+        Cell cell8 = getCell(x - 1, y - 1);
         List<Cell> cells = new ArrayList<>();
         cells.add(cell1);
         cells.add(cell2);
@@ -89,63 +89,67 @@ public class GameField extends Parent {
         for (Cell[] cells : field) {
             for (int j = 0; j < cells.length; j++) {
                 Cell cell = cells[j];
-                if (cell.getPlayer() != null) {
-                    if (cell.isEnemy()) {
-                        cell.setStyle("-fx-background-color: lightcoral;" +
-                                " -fx-border-color: lightgray; -fx-border-width: 3;");
-                        continue;
-                    } else {
-                        cell.setStyle("-fx-background-color: lightskyblue;" +
-                                "-fx-border-color: lightgray; -fx-border-width: 3;");
-                        continue;
-                    }
+
+                if (cell.equals(enemy)) {
+                    cell.setStyle("-fx-background-color: lightcoral;" +
+                            " -fx-border-color: lightgray; -fx-border-width: 3;");
+                    continue;
                 }
+
+                if (cell.equals(player)) {
+                    cell.setStyle("-fx-background-color: lightskyblue;" +
+                            "-fx-border-color: lightgray; -fx-border-width: 3;");
+                    continue;
+                }
+
                 cell.setStyle("-fx-border-color: lightgray; -fx-border-width: 3; -fx-background-color: white;" +
                         "-fx-min-width: 50; -fx-min-height: 50");
             }
         }
         List<Cell> neighbors = getPlayerNeighbors();
-        for (Cell cell : neighbors){
+        for (Cell cell : neighbors) {
+            if (cell.equals(enemy)){
+                continue;
+            }
             cell.setStyle("-fx-border-color: lightgray; -fx-border-width: 3; -fx-background-color: lightgreen;" +
                     "-fx-min-width: 50; -fx-min-height: 50");
         }
     }
 
-    public void replaceHandlers(){
-        for (Cell[] cells : field){
+    public void replaceHandlers() {
+        for (Cell[] cells : field) {
             for (int i = 0; i < cells.length; i++) {
                 Cell cell = cells[i];
                 cell.setOnMouseClicked(null);
             }
         }
         List<Cell> neighbors = getPlayerNeighbors();
-        for (Cell cell : neighbors){
+        for (Cell cell : neighbors) {
+            if (cell.equals(enemy)){
+                cell.setOnMouseClicked(mouseEvent -> {
+                    //TODO hit enemy
+                });
+                continue;
+            }
             cell.setOnMouseClicked(mouseEvent -> {
+                //TODO network packet sending
                 movePlayer(cell.X(), cell.Y(), cell);
             });
         }
     }
 
-    private List<Cell> getPlayerNeighbors(){
-        for (Cell[] cells : field){
-            for (int i = 0; i < cells.length; i++) {
-                Cell cell = cells[i];
-                if (cell.getPlayer() != null && !cell.isEnemy()){
-                    return getNeighbours(cell);
-                }
-            }
-        }
-        throw new IllegalStateException("No player");
+    private List<Cell> getPlayerNeighbors() {
+        return getNeighbours(player);
     }
 
-    public void movePlayer(int x, int y, Cell newPlayer){
+    public void movePlayer(int x, int y, Cell newPlayer) {
         newPlayer.setPlayer(player.getPlayer());
         player.setPlayer(null);
         player = newPlayer;
         renewMap();
     }
 
-    public void renewMap(){
+    public void renewMap() {
         repaint();
         replaceHandlers();
     }
