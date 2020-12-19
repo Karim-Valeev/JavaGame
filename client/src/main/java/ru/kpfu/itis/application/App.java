@@ -7,6 +7,10 @@ import ru.kpfu.itis.screens.NewScreen;
 public class App extends Application {
     private static Stage window;
 
+    public static Stage getWindow() {
+        return window;
+    }
+
     public static void main(String[] args) {
         launch();
     }
