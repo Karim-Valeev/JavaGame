@@ -3,6 +3,7 @@ package ru.kpfu.itis.application.client;
 import ru.kpfu.itis.application.client.abstracts.Client;
 import ru.kpfu.itis.application.client.abstracts.ClientEventListener;
 import ru.kpfu.itis.application.client.exceptions.GameClientException;
+import ru.kpfu.itis.application.models.GameField;
 import ru.kpfu.itis.protocol.Message;
 
 import java.io.IOException;
@@ -18,8 +19,10 @@ public class GameClient implements Client {
     protected List<ClientEventListener> listeners;
     protected boolean connected;
     protected MessageHandler messageHandler;
+    protected GameField gameField;
 
-    public GameClient(InetAddress address, int port) {
+    public GameClient(InetAddress address, int port, GameField gameField) {
+        this.gameField = gameField;
         this.address = address;
         this.port = port;
         listeners = new ArrayList<>();
@@ -66,5 +69,9 @@ public class GameClient implements Client {
         Thread listenerThread = new Thread(listener);
         listenerThread.start();
         listeners.add(listener);
+    }
+
+    public GameField getGameField() {
+        return gameField;
     }
 }

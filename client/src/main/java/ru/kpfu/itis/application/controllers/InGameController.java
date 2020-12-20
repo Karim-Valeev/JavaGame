@@ -18,5 +18,7 @@ public class InGameController implements Initializable {
         gameField = new GameField();
     }
 
-
+    public void setGameField(GameField gameField) {
+        this.gameField = gameField;
+    }
 }

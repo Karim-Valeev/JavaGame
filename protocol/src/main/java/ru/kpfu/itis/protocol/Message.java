@@ -16,6 +16,10 @@ public class Message {
     public static final int TYPE_SUBMIT_NAME = 500;
     public static final int TYPE_SUBMIT_NAME_ANSW = 501;
     public static final int TYPE_REQ_GAME = 101;
+    public static final int TYPE_WAIT_SECOND_PLAYER = 102;
+    public static final int TYPE_GAME_REJECTED = 104;
+    public static final int TYPE_GAME_STARTING = 105;
+
 
     public static final int MAX_LENGTH = 1000;
     protected static final byte[] START_BYTES = new byte[]{0xA, 0xB};

@@ -1,6 +1,7 @@
 package ru.kpfu.itis.application.client.abstracts;
 
 import ru.kpfu.itis.application.client.exceptions.ClientEventListenerException;
+import ru.kpfu.itis.application.models.GameField;
 import ru.kpfu.itis.protocol.Message;
 
 
@@ -11,7 +12,7 @@ import java.util.Queue;
 
 public abstract class AbstractClientEventListener implements ClientEventListener{
 
-    protected Queue<Message> queue;
+    protected Queue<Pair<Message, GameField>> queue;
     protected List<Integer> types;
     protected boolean init;
 
@@ -29,8 +30,8 @@ public abstract class AbstractClientEventListener implements ClientEventListener
     }
 
     @Override
-    public void submit(Message message) {
-        queue.offer(message);
+    public void submit(Message message, GameField gameField) {
+        queue.offer(new Pair<>(message, gameField));
     }
 
     @Override
@@ -39,8 +40,10 @@ public abstract class AbstractClientEventListener implements ClientEventListener
             Thread.yield();
             if (!queue.isEmpty()){
                 try{
-                    Message message = queue.poll();
-                    handle(message);
+                    Pair<Message, GameField> pair = queue.poll();
+                    Message message = pair.getFirst();
+                    GameField gameField = pair.getSecond();
+                    handle(message, gameField);
                 } catch (ClientEventListenerException e){
                     throw new IllegalStateException(e);
                 }

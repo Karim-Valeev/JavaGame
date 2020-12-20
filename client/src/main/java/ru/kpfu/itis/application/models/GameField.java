@@ -32,16 +32,9 @@ public class GameField extends Parent {
                 gridPane.add(cell, i, j);
             }
         }
-        Hero baseHero = new Hero(100, 10);
-        Player player = new Player(baseHero, false);
-        Player enemy = new Player(baseHero, true);
-        this.player = getCell(0, 0);
-        this.player.setPlayer(player);
-        this.enemy = getCell(9, 9);
-        this.enemy.setPlayer(enemy);
         gridPane.setVisible(true);
         this.getChildren().add(gridPane);
-        renewMap();
+//        paintEmpty();
     }
 
     public Cell getCell(int x, int y) {
@@ -152,5 +145,42 @@ public class GameField extends Parent {
     public void renewMap() {
         repaint();
         replaceHandlers();
+    }
+
+    public void createNewField(int xPlayer, int yPlayer, int xEnemy, int yEnemy, Hero playerHero, Hero enemyHero){
+//        field = new Cell[10][10];
+//        gridPane = new GridPane();
+//        for (int i = 0; i < 10; i++) {
+//            for (int j = 0; j < 10; j++) {
+//                Cell cell = new Cell(i, j);
+//                cell.setOnMouseEntered(mouseEvent -> {
+//                    cell.setStyle(cell.getStyle().concat(";-fx-border-color: lightgreen"));
+//                });
+//                cell.setOnMouseExited(mouseEvent -> {
+//                    cell.setStyle(cell.getStyle().concat(";-fx-border-color: lightgray"));
+//                });
+//                field[i][j] = cell;
+//                gridPane.add(cell, i, j);
+//            }
+//        }
+        Player player = new Player(playerHero, false);
+        Player enemy = new Player(enemyHero, true);
+        this.player = getCell(xPlayer, yPlayer);
+        this.player.setPlayer(player);
+        this.enemy = getCell(xEnemy, yEnemy);
+        this.enemy.setPlayer(enemy);
+//        gridPane.setVisible(true);
+//        this.getChildren().add(gridPane);
+        renewMap();
+    }
+
+    public void paintEmpty(){
+        for (Cell[] cells : field){
+            for (int i = 0; i < cells.length; i++) {
+                Cell cell = cells[i];
+                cell.setStyle("-fx-border-color: lightgray; -fx-border-width: 3; -fx-background-color: white;" +
+                        "-fx-min-width: 50; -fx-min-height: 50");
+            }
+        }
     }
 }

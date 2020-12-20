@@ -7,6 +7,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.text.Text?>
+<?import ru.kpfu.itis.application.models.GameField?>
 <VBox fx:id="mainBox" alignment="CENTER" spacing="15" fx:controller="ru.kpfu.itis.application.controllers.MainController" xmlns:fx="http://javafx.com/fxml/1"
       xmlns="http://javafx.com/javafx/2.2" stylesheets="/style.css">
     <children>
@@ -16,5 +17,8 @@
 <!--        <Button fx:id= "infoButton"  contentDisplay="CENTER" text="guide" textAlignment="CENTER" onAction="#clickReg"/>-->
         <Button fx:id="field" alignment="CENTER_RIGHT" contentDisplay="CENTER" mnemonicParsing="false" text="START GAME" textAlignment="CENTER" onAction="#requestGame" />
     </children>
+    <GameField fx:id="gameField">
 
+    </GameField>
 </VBox>
+

@@ -10,6 +10,22 @@ public class Game {
 
     public Game() {
         players = new ArrayList<>();
+        gameField = new GameField();
+    }
 
+    public List<Player> getPlayers() {
+        return players;
+    }
+
+    public void setPlayers(List<Player> players) {
+        this.players = players;
+    }
+
+    public GameField getGameField() {
+        return gameField;
+    }
+
+    public void setGameField(GameField gameField) {
+        this.gameField = gameField;
     }
 }

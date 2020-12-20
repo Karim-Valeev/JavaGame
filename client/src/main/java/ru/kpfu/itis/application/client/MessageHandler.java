@@ -22,7 +22,7 @@ public class MessageHandler implements Runnable{
                 Message message = Message.readMessage(client.socket.getInputStream());
                 for (ClientEventListener listener : client.listeners){
                     if (listener.getTypes().contains(message.getType())){
-                        listener.submit(message);
+                        listener.submit(message, client.getGameField());
                     }
                 }
             } catch (IOException e) {
